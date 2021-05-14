@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:snowstake-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -605,4 +606,59 @@ Wire Wire Line
 Wire Wire Line
 	8050 4850 7500 4850
 Connection ~ 7500 4850
+$Comp
+L Mechanical:Fiducial FID1
+U 1 1 6098AFE1
+P 10050 3450
+F 0 "FID1" H 10135 3496 50  0000 L CNN
+F 1 "Fiducial" H 10135 3405 50  0000 L CNN
+F 2 "Fiducial:Fiducial_0.75mm_Mask1.5mm" H 10050 3450 50  0001 C CNN
+F 3 "~" H 10050 3450 50  0001 C CNN
+	1    10050 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Fiducial FID2
+U 1 1 6098B69D
+P 10050 3800
+F 0 "FID2" H 10135 3846 50  0000 L CNN
+F 1 "Fiducial" H 10135 3755 50  0000 L CNN
+F 2 "Fiducial:Fiducial_0.75mm_Mask1.5mm" H 10050 3800 50  0001 C CNN
+F 3 "~" H 10050 3800 50  0001 C CNN
+	1    10050 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Fiducial FID3
+U 1 1 6098C3CA
+P 10050 4150
+F 0 "FID3" H 10135 4196 50  0000 L CNN
+F 1 "Fiducial" H 10135 4105 50  0000 L CNN
+F 2 "Fiducial:Fiducial_0.75mm_Mask1.5mm" H 10050 4150 50  0001 C CNN
+F 3 "~" H 10050 4150 50  0001 C CNN
+	1    10050 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 6098E440
+P 9100 3450
+F 0 "H1" H 9200 3496 50  0000 L CNN
+F 1 "MountingHole" H 9200 3405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.1mm" H 9100 3450 50  0001 C CNN
+F 3 "~" H 9100 3450 50  0001 C CNN
+	1    9100 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 6098E7A0
+P 9100 3800
+F 0 "H2" H 9200 3846 50  0000 L CNN
+F 1 "MountingHole" H 9200 3755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.1mm" H 9100 3800 50  0001 C CNN
+F 3 "~" H 9100 3800 50  0001 C CNN
+	1    9100 3800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
