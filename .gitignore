@@ -1,0 +1,6 @@
+
+#  Ignore all NodeJs imports:
+node_modules
+.vs*
+.vscode*
+.env
