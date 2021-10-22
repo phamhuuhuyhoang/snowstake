@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "particle-api-js": "^9.1.0",
+    "serialport": "^9.2.4"
+  }
+}

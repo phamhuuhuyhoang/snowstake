@@ -1,0 +1,100 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <neopixel.h>
+#include <HttpClient.h>
+#include <ArduinoJson.h>
+SYSTEM_MODE(AUTOMATIC);
+
+// IMPORTANT: Set pixel COUNT, PIN and TYPE
+#define PIXEL_PIN D6
+#define PIXEL_COUNT 11
+#define PIXEL_TYPE WS2812B
+
+Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+#define DELAY_VALUE 500
+const pin_t MY_LED=D7; // onboard LED
+
+// Prototypes for local build, ok to leave in for Build IDE
+//void rainbow(uint8_t wait);
+//uint32_t Wheel(byte WheelPos);
+
+
+
+void setup() {
+    pinMode(MY_LED,OUTPUT);
+    
+    strip.begin();
+    // strip.setBrightness(128);
+    // strip.show(); // Initialize all pixels to 'off'
+}
+
+void loop() {
+    uint16_t i;
+    // rainbow(20);
+    
+    digitalWrite(MY_LED,HIGH);
+    
+    for(i=0;i<12;i+=1){
+        strip.setPixelColor(i,Wheel(128));
+        strip.setBrightness(10);
+        strip.show();
+        delay(DELAY_VALUE);
+        strip.clear();
+    }
+    
+    digitalWrite(MY_LED,LOW);
+    delay(1s);
+}
+
+
+void rainbow(uint8_t wait) {
+  uint16_t i, j;
+
+  for(j=0; j<256; j++) {
+    for(i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i, Wheel((i+j) & 255));
+      strip.setBrightness(50);
+    
+    }
+    strip.show();
+    delay(wait);
+  }
+}
+
+// Input a value 0 to 255 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint32_t Wheel(byte WheelPos) {
+  if(WheelPos < 85) {
+   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  } else if(WheelPos < 170) {
+   WheelPos -= 85;
+   return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+  } else {
+   WheelPos -= 170;
+   return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+  }
+}
+
+
+uint32_t InchesOfSnow() {
+    // Weatherunlocked ID, Key, and Resort Code:
+    const String app_id="77183a51";
+    const String app_key="";
+    const String resort_id="206004"; // Stevens Pass
+    
+    // Make HTTP Request
+    HTTPClient client;
+    client.useHTTP10(true);
+    client.begin("http://api.weatherunlocked.com/api/resortforecast/206004?app_id=77183a51&app_key=");
+    client.GET();
+    
+    // Parse response
+    DynamicJsonDocument doc(2048);
+    deserializeJson(doc, client.getStream());
+    
+    // End connection and return parsed results
+    client.end();
+    // Return values
+    // Snow inches:
+    // return doc["forecast"][0]["snow_in"].as<long>();
+    return doc["forecast"][0]["vis_mi"].as<long>();
+}

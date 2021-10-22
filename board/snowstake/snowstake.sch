@@ -1,18 +1,21 @@
 EESchema Schematic File Version 4
 EELAYER 30 0
 EELAYER END
+
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Snowstake"
 Date "2021-05-06"
 Rev "0.1"
+
 Comp ""
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+
 $Comp
 L RF_Module:PHOTON-MCU_Module U1
 U 1 1 6090B6A3
@@ -24,6 +27,7 @@ F 3 "https://docs.particle.io/datasheets/wi-fi/photon-datasheet/" H 2600 1950 50
 	1    2250 2900
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR04
 U 1 1 60936F42
@@ -35,11 +39,14 @@ F 3 "" H 2350 4050 50  0001 C CNN
 	1    2350 4050
 	1    0    0    -1  
 $EndComp
+
+
 Wire Wire Line
 	2350 3750 2350 4050
 Wire Wire Line
 	2150 3750 2350 3750
 Connection ~ 2350 3750
+
 $Comp
 L power:+5V #PWR02
 U 1 1 60937312
@@ -51,8 +58,10 @@ F 3 "" H 2050 1750 50  0001 C CNN
 	1    2050 1750
 	1    0    0    -1  
 $EndComp
+
 Wire Wire Line
 	2050 1750 2050 1950
+
 $Comp
 L Transistor_FET:BSS138 Q2
 U 1 1 60937AF5
@@ -64,6 +73,7 @@ F 3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 7750 1850 50  0001 L 
 	1    7750 1850
 	0    1    1    0   
 $EndComp
+
 $Comp
 L Device:R R6
 U 1 1 6093A920
@@ -75,6 +85,7 @@ F 3 "~" H 7300 1600 50  0001 C CNN
 	1    7300 1600
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R9
 U 1 1 6093B309
@@ -86,6 +97,7 @@ F 3 "~" H 8200 1600 50  0001 C CNN
 	1    8200 1600
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:+5V #PWR015
 U 1 1 6093D088
@@ -97,6 +109,7 @@ F 3 "" H 8200 1300 50  0001 C CNN
 	1    8200 1300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:+3.3V #PWR012
 U 1 1 6093D64F
@@ -108,6 +121,7 @@ F 3 "" H 7300 1300 50  0001 C CNN
 	1    7300 1300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:+3.3V #PWR03
 U 1 1 6093DF37
@@ -119,6 +133,7 @@ F 3 "" H 2250 1900 50  0001 C CNN
 	1    2250 1900
 	1    0    0    -1  
 $EndComp
+
 Wire Wire Line
 	7300 1300 7300 1400
 Wire Wire Line
@@ -141,6 +156,7 @@ Wire Wire Line
 Wire Wire Line
 	2250 1900 2250 2000
 NoConn ~ 2450 2200
+
 $Comp
 L Device:C C1
 U 1 1 6093F3AB
@@ -152,6 +168,7 @@ F 3 "~" H 1700 1950 50  0001 C CNN
 	1    1700 1950
 	0    1    1    0   
 $EndComp
+
 $Comp
 L Device:C C2
 U 1 1 6093FC81
@@ -163,6 +180,7 @@ F 3 "~" H 2600 2000 50  0001 C CNN
 	1    2600 2000
 	0    1    1    0   
 $EndComp
+
 $Comp
 L power:GND #PWR05
 U 1 1 60940176
@@ -174,6 +192,7 @@ F 3 "" H 2750 2000 50  0001 C CNN
 	1    2750 2000
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR01
 U 1 1 6094080D
@@ -185,6 +204,7 @@ F 3 "" H 1550 1950 50  0001 C CNN
 	1    1550 1950
 	1    0    0    -1  
 $EndComp
+
 Wire Wire Line
 	1850 1950 2050 1950
 Connection ~ 2050 1950
@@ -207,6 +227,7 @@ Wire Wire Line
 Connection ~ 8200 1950
 Text Label 8300 1950 0    50   ~ 0
 DIN
+
 $Comp
 L Device:C C3
 U 1 1 60942B64
@@ -218,6 +239,7 @@ F 3 "~" H 10050 1550 50  0001 C CNN
 	1    10050 1550
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:+5V #PWR018
 U 1 1 609436E6
@@ -229,6 +251,7 @@ F 3 "" H 10050 1300 50  0001 C CNN
 	1    10050 1300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR019
 U 1 1 60943E01
@@ -240,10 +263,12 @@ F 3 "" H 10050 1850 50  0001 C CNN
 	1    10050 1850
 	1    0    0    -1  
 $EndComp
+
 Wire Wire Line
 	10050 1300 10050 1400
 Wire Wire Line
 	10050 1700 10050 1850
+
 $Comp
 L Device:LED D1
 U 1 1 60944C11
@@ -255,6 +280,7 @@ F 3 "~" H 5250 4600 50  0001 C CNN
 	1    5250 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:LED D2
 U 1 1 6094568F
@@ -266,6 +292,7 @@ F 3 "~" H 5850 4600 50  0001 C CNN
 	1    5850 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:LED D3
 U 1 1 60946793
@@ -277,6 +304,7 @@ F 3 "~" H 6450 4600 50  0001 C CNN
 	1    6450 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:LED D4
 U 1 1 60946E6E
@@ -288,6 +316,7 @@ F 3 "~" H 7000 4600 50  0001 C CNN
 	1    7000 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:LED D5
 U 1 1 6094738B
@@ -299,6 +328,7 @@ F 3 "~" H 7500 4600 50  0001 C CNN
 	1    7500 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:LED D6
 U 1 1 60947CD5
@@ -310,6 +340,7 @@ F 3 "~" H 7950 4600 50  0001 C CNN
 	1    7950 4600
 	0    -1   -1   0   
 $EndComp
+
 $Comp
 L Device:R R2
 U 1 1 6094A29E
@@ -321,6 +352,7 @@ F 3 "~" H 5250 4300 50  0001 C CNN
 	1    5250 4300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R3
 U 1 1 6094A9A5
@@ -332,6 +364,7 @@ F 3 "~" H 5850 4300 50  0001 C CNN
 	1    5850 4300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R4
 U 1 1 6094AE61
@@ -343,6 +376,7 @@ F 3 "~" H 6450 4300 50  0001 C CNN
 	1    6450 4300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R5
 U 1 1 6094B3E1
@@ -354,6 +388,7 @@ F 3 "~" H 7000 4300 50  0001 C CNN
 	1    7000 4300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R7
 U 1 1 6094BCCE
@@ -365,6 +400,7 @@ F 3 "~" H 7500 4300 50  0001 C CNN
 	1    7500 4300
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Device:R R8
 U 1 1 6094C047
@@ -376,6 +412,7 @@ F 3 "~" H 7950 4300 50  0001 C CNN
 	1    7950 4300
 	1    0    0    -1  
 $EndComp
+
 Text Label 2950 3200 0    50   ~ 0
 D0
 Text Label 2950 3100 0    50   ~ 0
@@ -404,6 +441,7 @@ Wire Wire Line
 	2750 2600 3100 2600
 Wire Wire Line
 	2750 2500 3100 2500
+
 $Comp
 L Connector:TestPoint TP1
 U 1 1 609A69E8
@@ -415,6 +453,7 @@ F 3 "~" H 8950 1700 50  0001 C CNN
 	1    8750 1700
 	0    1    1    0   
 $EndComp
+
 $Comp
 L Connector:TestPoint TP2
 U 1 1 609A758C
@@ -426,6 +465,7 @@ F 3 "~" H 8950 1950 50  0001 C CNN
 	1    8750 1950
 	0    1    1    0   
 $EndComp
+
 $Comp
 L Connector:TestPoint TP3
 U 1 1 609A8ADC
@@ -437,6 +477,7 @@ F 3 "~" H 8950 2200 50  0001 C CNN
 	1    8750 2200
 	0    1    1    0   
 $EndComp
+
 $Comp
 L power:GND #PWR017
 U 1 1 609AA339
@@ -448,6 +489,7 @@ F 3 "" H 8750 2200 50  0001 C CNN
 	1    8750 2200
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:+5V #PWR016
 U 1 1 609AB040
@@ -482,6 +524,7 @@ F 3 "~" H 10050 3450 50  0001 C CNN
 	1    10050 3450
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Mechanical:Fiducial FID2
 U 1 1 6098B69D
@@ -493,6 +536,7 @@ F 3 "~" H 10050 3800 50  0001 C CNN
 	1    10050 3800
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Mechanical:Fiducial FID3
 U 1 1 6098C3CA
@@ -504,6 +548,7 @@ F 3 "~" H 10050 4150 50  0001 C CNN
 	1    10050 4150
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 6098E440
@@ -515,6 +560,7 @@ F 3 "~" H 9100 3450 50  0001 C CNN
 	1    9100 3450
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L Mechanical:MountingHole H2
 U 1 1 6098E7A0
@@ -539,6 +585,7 @@ F 3 "" H 5250 4900 50  0001 C CNN
 	1    5250 4900
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR0102
 U 1 1 60B7BBB9
@@ -550,6 +597,7 @@ F 3 "" H 5850 4850 50  0001 C CNN
 	1    5850 4850
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR0103
 U 1 1 60B7C1B1
@@ -561,6 +609,7 @@ F 3 "" H 6450 4850 50  0001 C CNN
 	1    6450 4850
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR0104
 U 1 1 60B7C82D
@@ -572,6 +621,7 @@ F 3 "" H 7000 4850 50  0001 C CNN
 	1    7000 4850
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR0105
 U 1 1 60B7CC80
@@ -583,6 +633,7 @@ F 3 "" H 7500 4850 50  0001 C CNN
 	1    7500 4850
 	1    0    0    -1  
 $EndComp
+
 $Comp
 L power:GND #PWR0106
 U 1 1 60B7D634
@@ -594,6 +645,7 @@ F 3 "" H 7950 4850 50  0001 C CNN
 	1    7950 4850
 	1    0    0    -1  
 $EndComp
+
 Text Label 5250 4050 0    50   ~ 0
 D0
 Text Label 5850 4050 0    50   ~ 0
