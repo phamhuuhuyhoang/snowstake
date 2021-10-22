@@ -1,6 +1,11 @@
-
-#  Ignore all NodeJs imports:
-node_modules
+# Ignore VSCode settings:
 .vs*
 .vscode*
+
+# Ignore all NodeJs imports:
+node_modules
+
+# Ignore Secrets Files:
+# arduino_secrets.h
 .env
+
