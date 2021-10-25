@@ -39,18 +39,23 @@ String resort_id      = SECRET_RESORT_ID;
 Adafruit_NeoPixel pixels(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 const uint32_t LED_BRIGHTNESS = 50; // 1-100
-const uint32_t LED_RED = pixels.Color( 255, 0, 0);
-const uint32_t LED_GREEN = pixels.Color( 0, 255, 0);
-const uint32_t LED_BLUE = pixels.Color( 0, 0, 255);
-const uint32_t LED_WHITE = pixels.Color( 255, 255, 255);
-const uint32_t LED_BROWN = pixels.Color( 139, 69, 19);
+const uint32_t LED_RED    = pixels.Color( 255, 0, 0);
+const uint32_t LED_GREEN  = pixels.Color( 0, 255, 0);
+const uint32_t LED_BLUE   = pixels.Color( 0, 0, 255);
+const uint32_t LED_PURPLE = pixels.Color( 153, 0, 153);
+const uint32_t LED_WHITE  = pixels.Color( 255, 255, 255);
+const uint32_t LED_BROWN  = pixels.Color( 139, 69, 19);
 const uint32_t LED_YELLOW = pixels.Color( 255, 255, 0);
-const uint32_t LED_GRAY = pixels.Color( 143, 188, 143);
+const uint32_t LED_GRAY   = pixels.Color( 143, 188, 143);
+const uint32_t LED_BLACK  = pixels.Color( 0, 0, 0);
 uint32_t LED_GROUND_COLOR = LED_GREEN;
 
-int counter = 0;
-uint16_t inches_of_snow; 
+// Defining Snow, Visibility, and Rain:
+uint16_t inches_of_snow      = 0;
+uint16_t inches_of_rain      = 0;
+uint16_t miles_of_visibility = 0;
 
+// MAIN SETUP:
 void setup() {
   // Activity LED PIN
   pinMode(LED_BUILTIN, OUTPUT);
@@ -66,18 +71,19 @@ void setup() {
   pixels.show();
 }
 
+// MAIN LOOP:
+int counter = 0;
 void loop() {
   currentMillis = millis();
   digitalWrite(LED_BUILTIN, HIGH);  
   Serial.println(++counter);
 
   // checks if its been two minutes before it queries the api again.
-  if(currentMillis - previousMillis >= period || !inches_of_snow){
-    inches_of_snow = GetInchesOfSnow();
-    if(!inches_of_snow){delay(10000); }
+  if(currentMillis - previousMillis >= period){
+    SetForecastValues();
     previousMillis = currentMillis;
   }
-  ShowLEDPixels(inches_of_snow);
+  ShowLEDPixels();
   digitalWrite(LED_BUILTIN, LOW);
   delay(1000);
 }
@@ -86,10 +92,16 @@ uint16_t Incrementing_Pixels(){
   return abs(counter % LED_COUNT);
 }
 
-uint16_t GetInchesOfSnow(){
-  String connectionURL = String(server_address + resort_id + app_id + app_key);
-  uint16_t forecast_0_vis_mi = 0;
+void SetForecastValues(){
+  JsonObject forecast = GetForecast();
+  Serial.println(forecast);
+  if(forecast["vis_mi"] > 0){ miles_of_visibility = ((int)forecast["vis_mi"]) +1; }
+  if(forecast["snow_in"] > 0){ inches_of_snow = ((int)forecast["snow_in"]) +1; }
+  if(forecast["rain_in"] > 0){ inches_of_rain = ((int)forecast["rain_in"]) +1; }
+}
 
+JsonObject GetForecast(){
+  String connectionURL = String(server_address + resort_id + app_id + app_key);
   // init clients:
   WiFiClient wifi_client;
   HTTPClient http_client;
@@ -99,54 +111,43 @@ uint16_t GetInchesOfSnow(){
   int response_code = http_client.GET();
   Serial.printf("[HTTP] GET... code: %d\n", response_code);
   if (response_code == HTTP_CODE_OK) {
+    StaticJsonDocument<80> filter;
+    JsonObject filter_forecast_0 = filter["forecast"].createNestedObject();
+    filter_forecast_0["vis_mi"] = true;
+    filter_forecast_0["snow_in"] = true;
+    filter_forecast_0["rain_in"] = true;
 
-    // set size and buffer:
-    int len = http_client.getSize();
-    uint8_t buff[128] = { 0 };
-
-    // Get stream from Wifi Client:
-    // WiFiClient * stream = &wifi_client;
-
-    StaticJsonDocument<48> filter;
-    filter["forecast"][0]["vis_mi"] = true;
-
-    // ReadLoggingStream loggingStream(wifi_client, Serial);
-    DynamicJsonDocument doc(2048);
+    DynamicJsonDocument doc(4096);
     DeserializationError error = deserializeJson(doc, wifi_client, DeserializationOption::Filter(filter));
-    // Test if parsing succeeds.
     if (error) {
         Serial.print(F("deserializeJson() failed: "));
         Serial.println(error.c_str());
     }
-
-    // Serialize for troubleshooting:
-    // Serial.println( serializeJson(doc, Serial) );
-    
-    JsonArray forecast = doc["forecast"];
-    Serial.print("Visual Miles: ");
-    // Grabs the first visable miles for now.
-    forecast_0_vis_mi = forecast[0]["vis_mi"];
-    Serial.println(forecast_0_vis_mi);
+    http_client.end();
+    return doc["forecast"][0];
   } else {
     Serial.printf("[HTTP] GET... failed, error: %s\n", http_client.errorToString(response_code).c_str());
   }
-  http_client.end();
-  if(forecast_0_vis_mi > 0){ inches_of_snow = forecast_0_vis_mi; }
-  return inches_of_snow;
+  
+  JsonObject blank_forcast = {};
+  blank_forcast["vis_mi"] = 0;
+  blank_forcast["snow_in"] = 0;
+  blank_forcast["rain_in"] = 0;
+  return blank_forcast;
 }
 
-void ShowLEDPixels(uint16_t inches) {
+void ShowLEDPixels() {
   pixels.clear();
   pixels.setPixelColor(0, GROUND_COLOR());
   for(uint16_t LED=1; LED < LED_COUNT -1; LED++) {
-    if (LED<=inches) {
+    if (LED<=inches_of_snow) {
       pixels.setPixelColor(LED, LED_WHITE);
     } else {
-      pixels.setPixelColor(LED, LED_BLUE);
+      pixels.setPixelColor(LED, SKY_COLOR());
     }
   }
   // Setting the sun weather:
-  pixels.setPixelColor(LED_COUNT-1, LED_YELLOW);
+  pixels.setPixelColor(LED_COUNT-1, SUN_COLOR());
   pixels.setBrightness(LED_BRIGHTNESS);
   pixels.show();
 }
@@ -158,6 +159,22 @@ uint32_t GROUND_COLOR(){
     LED_GROUND_COLOR = LED_GREEN;
   }
   return LED_GROUND_COLOR;
+}
+
+uint32_t SKY_COLOR(){
+  if(inches_of_rain > 1){
+    return LED_PURPLE;
+  }
+  return LED_BLUE;
+}
+
+uint32_t SUN_COLOR(){
+  if (miles_of_visibility <= 2){
+    return LED_PURPLE;
+  } else if (miles_of_visibility <= 5){
+    return LED_GRAY;
+  }
+  return LED_YELLOW;
 }
 
 void ConnectWifi(){
