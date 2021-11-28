@@ -29,9 +29,13 @@ unsigned long period = 120000; // two minutes
 /////// Weather Unlocked Details /////
 String server_address = SECRET_SERVER_ADDRESS;
 int    server_port    = String(SECRET_SERVER_PORT).toInt();
-String app_id         = ("?app_id=" + String(SECRET_APP_ID));
+// Adding interval adds additional detail when 6 or 12 are chosen. 
+// number of days greatly decreses the amount of data returned.
+String addition_parameters = "?hourly_interval=12&num_of_days=1";
+String app_id         = ("&app_id=" + String(SECRET_APP_ID));
 String app_key        = ("&app_key=" + String(SECRET_APP_KEY));
 String resort_id      = SECRET_RESORT_ID;
+String connectionURL = String(server_address + addition_parameters + resort_id + app_id + app_key);
 
 ////// Declaring NeoPixel variables. ///////////
 #define LED_PIN 12
@@ -96,12 +100,11 @@ void SetForecastValues(){
   JsonObject forecast = GetForecast();
   Serial.println(forecast);
   if(forecast["vis_mi"] > 0){ miles_of_visibility = ((int)forecast["vis_mi"]) +1; }
-  if(forecast["snow_in"] > 0){ inches_of_snow = ((int)forecast["snow_in"]) +1; }
+  if(forecast["snow_in"] > 0){ inches_of_snow = (((int)forecast["snow_in"]) +1) /2; }
   if(forecast["rain_in"] > 0){ inches_of_rain = ((int)forecast["rain_in"]) +1; }
 }
 
 JsonObject GetForecast(){
-  String connectionURL = String(server_address + resort_id + app_id + app_key);
   // init clients:
   WiFiClient wifi_client;
   HTTPClient http_client;
